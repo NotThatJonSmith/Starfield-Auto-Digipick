@@ -12,11 +12,8 @@ lock_ring_stride = 0.165 # The distance between individual lock rings
 
 class Screenshot(object):
 
-    def __init__(self, filename=None):
-        if filename:
-            self.im = Image.open(filename)
-        else:
-            self.im = pyautogui.screenshot()
+    def __init__(self, im):
+        self.im = im
         self.px = self.im.load()
         self.test_output_im = self.im.copy()
         self.draw = ImageDraw.Draw(self.test_output_im)
@@ -24,8 +21,9 @@ class Screenshot(object):
         self.key_distance_x = self.lock_radius_px * lock_radius_to_key_distance_x
         self.key_distance_y = self.lock_radius_px * lock_radius_to_key_distance_y
 
-    def save_debug_image(self, filename):
-        self.test_output_im.save(filename)
+    def save_debug_image(self, filename, annotated_filename):
+        self.test_output_im.save(annotated_filename)
+        self.im.save(filename)
 
     # Given an x,y coordinate in the image,
     # Return the subjective brightness value there, where out-of-image pixels are assumed to be black
