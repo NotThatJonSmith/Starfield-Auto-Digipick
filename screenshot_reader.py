@@ -10,7 +10,7 @@ lock_radius_to_key_distance_y = 0.544 # The vertical distance between rows of ke
 lock_radius_to_key_radius = 0.185 # The radius of a key ring
 lock_ring_stride = 0.165 # The distance between individual lock rings
 
-class Screenshot(object):
+class ScreenshotReader(object):
 
     def __init__(self, im):
         self.im = im

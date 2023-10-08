@@ -54,3 +54,23 @@ def solve(lock_rings, key_rings, moves_list=[]):
         if solution:
             return solution
     return None
+
+# Given a sequence of key indices and rotation counts,
+# Return a sequence of control motions that performs those actions
+def moves_to_keystrokes(move_list, key_rings):
+    sel = 0
+    inputs = ''
+    for key_index, num_rotations in move_list:
+        while sel != key_index:
+            inputs += 'q'
+            sel = (sel - 1) % 12
+            while key_rings[sel] == 0:
+                sel = (sel - 1) % 12
+        inputs += 'a'*(32-num_rotations) if num_rotations >= 16 else 'd'*num_rotations
+        inputs += 'e'
+        if key_index != move_list[-1][0]:
+            key_rings[sel] = 0
+            sel = (sel + 1) % 12
+            while key_rings[sel] == 0:
+                sel = (sel + 1) % 12
+    return inputs
